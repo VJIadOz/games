@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+	<TITLE>Игра</TITLE>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<LINK rel="stylesheet" href="/styles/chess.css">
+	<LINK rel="stylesheet" href="/styles/reset.css">
+	<meta charset="utf-8">
+</HEAD>
+<BODY>
+    <div onselectstart="return false" class="background">
+        <div class="game">
+            <table> 
+                <tr style="height: 12.5%; width: 100%;">
+                    <td id="1" class="cell" style="background: rgb(110, 107, 107);"><div class="figure black" data-type="lodya" onclick="handle(this)"><p>&#9820</p></div></td>
+                    <td id="2" class="cell" style="background: #403d3d;"><div class="figure black" data-type="horse" onclick="handle(this)"><p>&#9822</p></div></td>
+                    <td id="3" class="cell" style="background: rgb(110, 107, 107);;"><div class="figure black" data-type="elephant" onclick="handle(this)"><p>&#9821</p></div></td>
+                    <td id="4" class="cell" style="background: #403d3d;"><div class="figure black" data-type="queen" onclick="handle(this)"><p>&#9819</p></div></td>
+                    <td id="5" class="cell" style="background: rgb(110, 107, 107);"><div class="figure black" data-type="king" onclick="handle(this)"><p>&#9818</p></div></td>
+                    <td id="6" class="cell" style="background: #403d3d;"><div class="figure black" data-type="elephant" onclick="handle(this)"><p>&#9821</p></div></td>
+                    <td id="7" class="cell" style="background: rgb(110, 107, 107);"><div class="figure black" data-type="horse" onclick="handle(this)"><p>&#9822</p></div></td>
+                    <td id="8" class="cell" style="background: #403d3d;"><div class="figure black" data-type="lodya" onclick="handle(this)"><p>&#9820</p></div></td>
+                </tr>
+                <tr style="height: 12.5%; width: 100%;">
+                    <td id="9" class="cell" style="background: #403d3d;"><div class="figure black" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9823</p></div></td>
+                    <td id="10" class="cell" style="background: rgb(110, 107, 107);"><div class="figure black" data-type="pawn" data-double-step="no" onclick="handle(this)"><p >&#9823</p></div></td>
+                    <td id="11" class="cell" style="background: #403d3d;"><div class="figure black" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9823</p></div></td>
+                    <td id="12" class="cell" style="background: rgb(110, 107, 107);"><div class="figure black" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9823</p></div></td>
+                    <td id="13" class="cell" style="background: #403d3d;"><div class="figure black" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9823</p></div></td>
+                    <td id="14" class="cell" style="background: rgb(110, 107, 107);"><div class="figure black" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9823</p></div></td>
+                    <td id="15" class="cell" style="background: #403d3d;"><div class="figure black" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9823</p></div></td>
+                    <td id="16" class="cell" style="background: rgb(110, 107, 107);"><div class="figure black" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9823</p></div></td>
+                </tr>
+                <tr style="height: 12.5%; width: 100%;">
+                    <td id="17" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="18" class="cell" style="background: #403d3d;"></td>
+                    <td id="19" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="20" class="cell" style="background: #403d3d;"></td>
+                    <td id="21" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="22" class="cell" style="background: #403d3d;"></td>
+                    <td id="23" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="24" class="cell" style="background: #403d3d;"></td>
+                </tr>
+                <tr style="height: 12.5%; width: 100%;">
+                    <td id="25" class="cell" style="background: #403d3d;"></td>
+                    <td id="26" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="27" class="cell" style="background: #403d3d;"></td>
+                    <td id="28" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="29" class="cell" style="background: #403d3d;"></td>
+                    <td id="30" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="31" class="cell" style="background: #403d3d;"></td>
+                    <td id="32" class="cell" style="background: rgb(110, 107, 107);"></td>
+                </tr>
+                <tr style="height: 12.5%; width: 100%;">
+                    <td id="33" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="34" class="cell" style="background: #403d3d;"></td>
+                    <td id="35" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="36" class="cell" style="background: #403d3d;"></td>
+                    <td id="37" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="38" class="cell" style="background: #403d3d;"></td>
+                    <td id="39" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="40" class="cell" style="background: #403d3d;"></td>
+                </tr>
+                <tr style="height: 12.5%; width: 100%;">
+                    <td id="41" class="cell" style="background: #403d3d;"></td>
+                    <td id="42" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="43" class="cell" style="background: #403d3d;"></td>
+                    <td id="44" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="45" class="cell" style="background: #403d3d;"></td>
+                    <td id="46" class="cell" style="background: rgb(110, 107, 107);"></td>
+                    <td id="47" class="cell" style="background: #403d3d;"></td>
+                    <td id="48" class="cell" style="background: rgb(110, 107, 107);"></td>
+                </tr>
+                <tr style="height: 12.5%; width: 100%;">
+                    <td id="49" class="cell" style="background: rgb(110, 107, 107);"> <div class="figure white" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9817</p></div></td>
+                    <td id="50" class="cell" style="background: #403d3d;"><div class="figure white" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9817</p></div></td>
+                    <td id="51" class="cell" style="background: rgb(110, 107, 107);;"><div class="figure white" data-type="pawn" data-double-step="no" onclick="handle(this)"><p >&#9817</p></div></td>
+                    <td id="52" class="cell" style="background: #403d3d;"><div class="figure white" data-type="pawn" data-double-step="no" onclick="handle(this)"><p >&#9817</p></div></td>
+                    <td id="53" class="cell" style="background: rgb(110, 107, 107);;"><div class="figure white" data-type="pawn" data-double-step="no" onclick="handle(this)"><p >&#9817</p></div></td>
+                    <td id="54" class="cell" style="background: #403d3d;"><div class="figure white" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9817</p></p></td>
+                    <td id="55" class="cell" style="background: rgb(110, 107, 107);;"><div class="figure white" data-type="pawn" data-double-step="no" onclick="handle(this)"><p >&#9817</p></div></td>
+                    <td id="56" class="cell" style="background: #403d3d;"><div class="figure white" data-type="pawn" data-double-step="no" onclick="handle(this)"><p>&#9817</p></p></td>
+                </tr>
+                <tr style="height: 12.5%; width: 100%;">
+                    <td id="57" class="cell" style="background: #403d3d;"><div class="figure white" data-type="lodya" onclick="handle(this)"><p>&#9814</p></div></td>
+                    <td id="58" class="cell" style="background: rgb(110, 107, 107);;"><div class="figure white" data-type="horse" onclick="handle(this)"><p>&#9816</p></div></td>
+                    <td id="59" class="cell" style="background: #403d3d;"><div class="figure white" data-type="elephant" onclick="handle(this)"><p>&#9815</p></div></td>
+                    <td id="60" class="cell" style="background: rgb(110, 107, 107);;"><div class="figure white" data-type="queen" onclick="handle(this)"><p>&#9813</p></div></td>
+                    <td id="61" class="cell" style="background: #403d3d;"><div class="figure white" data-type="king" onclick="handle(this)"><p>&#9812</p></div></td>
+                    <td id="62" class="cell" style="background: rgb(110, 107, 107);;"><div class="figure white" data-type="elephant" onclick="handle(this)"><p>&#9815</p></div></td>
+                    <td id="63" class="cell" style="background: #403d3d;"><div class="figure white" data-type="horse" onclick="handle(this)"><p>&#9816</p></div></td>
+                    <td id="64" class="cell" style="background: rgb(110, 107, 107);;"><div class="figure white" data-type="lodya" onclick="handle(this)"><p>&#9814</p></div></td>
+                </tr>
+            </table>
+            <div class="endGameDiv">
+                <div class="endGameLabel">
+                    <span>Вы победили :) Обновите страницу чтобы сыграть ещё</span>
+                </div>
+            </div>
+        </div>       
+    </div>
+    <script src="/chess.js"></script>
+</BODY>
+</HTML>
