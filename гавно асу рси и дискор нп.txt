@@ -1,0 +1,124 @@
+Здравствуйте!
+В АСУ РСИ нет роли с названием технологическая.
+Есть 1. пользовательские роли по функциональности, содержащие полномочия на запуск транзакций и объекты, независящие от оргструктуры.
+2.пользовательские роли, зависимые от оргструктуры (дороги): Разделение полномочий по дорогам. 3. разделение полномочий по перевозчикам.
+Т.е. если пользователю необходимо корректировать, то ему должны быть присвоены функциональные роли + полномочия на дорогу и перевозчика. Это минимум 3 роли.
+Полномочия на дорогу - зависит на какой ИВЦ создана заявка, те полномочия и выдаются. Если нужны 2 и более дорог, то заявки на каждый ИВЦ. Полномочия на перевозчика - если пользователь РЖД, то выдается роль на перевозчиков РЖД. Полномочия на дорогу и перевозчика присваиваются по умолчанию.
+Функциональные роли указать должен пользователь, т.к. зависит АСУ РСИ дальнее или АСУ РСИ пригород + что именно он должен делать.
+Подробно роли описаны в документах:  РОС и в Ведении полномочий пользователей
+
+
+
+
+if (str.exists==false){
+                externalCallResponse = {asozRes:0};}
+            else {
+                externalCallResponse = {asozRes:1, nASOZ:str.request.number, dASOZ:str.request.endDate, nESPP:str.request.esppNumber, ivc:str.request.ivc};}
+
+
+
+{"asozRes":1,"nASOZ":"867414/2024","dASOZ":"10.04.2026","nESPP":"ОБР24-03661055","connectionType":"Информационное","department":"Горьковская ЖД\\Нижегородский ИВЦ\\Отдел КСУП","ivc":"Главный вычислительный центр"}
+
+
+ПКС ФПК Федеральная пассажирская компания
+
+{"last_update":"18.04.2024 08:48","requests":
+{"shortSystemName":"ДИСКОР НП\\Конструктор отчетов \\Пользователь","endDate":"03.08.2025","esppNumber":"ОБР23-06876012","ip":"10.200.20.45","userFullName":"Шарков Владислав Александрович","connectionType":"Информационное","number":"1789019/2023","systemName":"Система Автоматизированного формирования оперативных отчетов для руководства дорог нового поколения\\Конструктор отчетов \\Пользователь","ivc":"Главный вычислительный центр","position":"Технолог I категории","department":"ГВЦ\\Главный вычислительный центр\\Процессинг\\Отдел КСУП","status":"Утверждена","createDate":"03.08.2023"},
+{"shortSystemName":"Администрирование информационных систем\\ЦТС КСУП\\ДИСКОР НП\\Сетевой уровень\\АРМ администратора || Администратор пользователей ДИСКОР НП (тестовый полигон)|Администратор пользователей ДИСКОР НП (продуктивный полигон)|","endDate":"03.08.2025","esppNumber":"ОБР23-06863699","ip":"10.200.20.45","userFullName":"Шарков Владислав Александрович","connectionType":"Информационное","number":"1788926/2023","systemName":"Администрирование информационных систем\\ЦТС КСУП\\ДИСКОР НП\\Сетевой уровень\\АРМ администратора || Администратор пользователей ДИСКОР НП (тестовый полигон)|Администратор пользователей ДИСКОР НП (продуктивный полигон)|","ivc":"Главный вычислительный центр","position":"Технолог I категории","department":"ГВЦ\\Главный вычислительный центр\\Процессинг\\Отдел КСУП","status":"Утверждена","createDate":"03.08.2023"},"error":false} $Message
+
+
+
+
+
+
+ externalCall: createAndCloseInteractionEspp
+                    employeeNum = $employeeNum
+                    templateName = $templateName
+                    descriptionConcat = $descriptionConcat
+                    ip = $ip
+                    description = $description
+                    configurationItem = $EK
+                    assignee = $assignee
+                    rzdEventCode = $rzdEventCode
+                    rzdKeRobot = $rzdKeRobot
+                    EsppUser = $EsppUser
+                    rzdMTNKprocess = $rzdMTNKprocess
+                    rzdMTNKsubprocess = $rzdMTNKsubprocess
+                    rzdMTNKtnk = $rzdMTNKtnk  
+                    rzdMTNKjob = $rzdMTNKjob  
+                    idProcess = $idProcess  
+                    idSubprocess = $idSubprocess  
+                    idTnk = $idTnk  
+                    idJob = $idJob
+                    instantly = true 
+                    open = true
+                    skillSessionId = $sessionId
+                    vicoSessionId = $sSesID
+                    masterSessionId = $diagID # ID сессии (диалога), существует только при входе из центрального мастера
+                    botName = $botName # имя бота в мастере, существует только при входе из центрального мастера
+                    esppComm = $esppComm
+                    prod = true
+                    intentionTag = $intentionTag
+                    intention = false
+                    ifSuccess:
+                        script:
+                            sessionData.structure = eaResult;
+                            sessionData.interaction = sessionData.structure["interactionId"] || "";
+                            sessionData.esppNum = sessionData.interaction;
+                        
+                        a: $txtUnBlock $txtFocus Обращение создано и отправлено технологу. Номер обращения $interaction.
+                        go!: /techState/question
+                    ifFail:
+                        script:
+                            sessionData.error = eaResult || "Ошибка. Повторите, пожалуйста, запрос!";
+                        a: $error Обращение не создано. Вы можете создать обращение самостоятельно через портал АСУ ЕСПП. Спасибо, я остаюсь на связи! 
+
+
+- methodName: createAndCloseInteractionEspp
+  httpMethod: POST
+  urlTemplate: http://api-vc.serw.oao.rzd:5555/api/interactions/Create
+  isLegalUri: true
+  parameters: [employeeNum, templateName, descriptionConcat, ip, description, configurationItem, assignee, rzdEventCode, rzdKeRobot, EsppUser, rzdMTNKprocess, rzdMTNKsubprocess, rzdMTNKtnk, rzdMTNKjob, idProcess, idSubprocess, idTnk, idJob, instantly, open, skillSessionId, vicoSessionId, masterSessionId, botName, esppComm, prod, intentionTag, intention]
+  headers:
+      Content-Type: application/json; charset=utf-8
+      EsppUser: ${EsppUser}
+      EsppPassword: 123456789
+  bodyTemplate: |
+      {"esppUser":"${EsppUser}"
+      , "esppPassword":"123456789"
+      , "contact":"${employeeNum}"
+      , "templateName":"${templateName}"
+      , "description":${descriptionConcat}
+      , "briefDescription":"${description}"
+      , "ip":"${ip}"
+      , "assignee":"${assignee}"
+      , "idTnk":"${idTnk}" 
+      , "idProcess":"${idProcess}" 
+      , "idSubprocess":"${idSubprocess}" 
+      , "idJob":"${idJob}" 
+      , "rzdMTNKprocess":"${rzdMTNKprocess}" 
+      , "rzdMTNKsubprocess":"${rzdMTNKsubprocess}" 
+      , "rzdMTNKtnk":"${rzdMTNKtnk}" 
+      , "rzdMTNKjob":"${rzdMTNKjob}"
+      , "joboperation":"Анализ ситуации"
+      , "time":"00:05"
+      , "breachCause":"Прочее"
+      , "resolutionCode":"выполнен при помощи средств автоматизации"
+      , "resolution":"Консультация оказана Чат-Ботом"
+      , "interactionCause":"Технологическая консультация в рамках инструкции"
+      , "rzdEventCode":"${rzdEventCode}"
+      , "rzdKeRobot":"${rzdKeRobot}"
+      , "resultInfoMail":"sharkovva@gvc.rzd"
+      , "botName":"${botName}"
+      , "masterSessionId":"${masterSessionId}"
+      , "skillSessionId":"${skillSessionId}"
+      , "vicoSessionId":"${vicoSessionId}"
+      , "esppComm":"${esppComm}"
+      , "open":"${open}"
+      , "prod":"${prod}"
+      , "mtnk":true
+      , "instantly":"${instantly}"
+      , "intentionTag":"${intentionTag}"
+      , "intention":"${intention}"
+      , "api_key":"sharkovva@gvc.rzd"
+      }
